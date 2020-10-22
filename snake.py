@@ -57,14 +57,14 @@ class snake():
         next_rect = self.rect[0][:]
         self.rect[0][0] += velocity[0]
         self.rect[0][1] += velocity[1]
-        # if self.rect[0][0] > 700:
-        #     self.rect[0][0] = 0
-        # elif self.rect[0][0] < 0:
-        #     self.rect[0][0] = 700
-        # if self.rect[0][1] > 400:
-        #     self.rect[0][1] = 0
-        # if self.rect[0][1] < 0:
-        #     self.rect[0][1] = 400
+        if self.rect[0][0] > 700:
+            self.rect[0][0] = 0
+        elif self.rect[0][0] < 0:
+            self.rect[0][0] = 700
+        if self.rect[0][1] > 400:
+            self.rect[0][1] = 0
+        if self.rect[0][1] < 0:
+            self.rect[0][1] = 400
         if velocity != (0, 0):
                     for i in range(1, len(self.rect)):
                         previous_rect = self.rect[i]
