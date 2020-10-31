@@ -1,8 +1,10 @@
-a =[[5,6,7,8],[1,2,3,4]]
-b= a[0][:]
-a[0][0] += 1
-a[0][1] += 1
-# c = b
-# a[1] = c
-# c = a[1]
-print(b)
+
+class A:
+  def __init__(self, v):
+    self.v = v
+v = 0
+a = A(v)
+
+for i in range(0, 5):
+  a.v += 5
+  print(a.v)

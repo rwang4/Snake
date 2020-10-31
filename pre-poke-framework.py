@@ -86,7 +86,7 @@ class Game:
     def update(self):
         # Update the game objects for the next frame.
         # - self is the Game to update
-
+        
         self.small_dot.move()
         self.big_dot.move()
         self.frame_counter = self.frame_counter + 1

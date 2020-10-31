@@ -62,9 +62,9 @@ class Game:
                        dot_velocity, self.screen)
         paddle_color = pygame.Color('white')
         paddle_size = (10, 70)
-        p1_pos = (100, 150)
-        p2_pos = (400, 150)
-        paddle_velocity = [0, 0]
+        p1_pos = [100, 150]
+        p2_pos = [400, 150]
+        paddle_velocity = 0
 
         self.p1 = Paddle(paddle_color, pygame.Rect(
             p1_pos, paddle_size), paddle_velocity, self.screen)
@@ -93,6 +93,21 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.close_clicked = True
+            elif event.type == pygame.KEYDOWN:
+                keys = pygame.key.get_pressed()
+                if event.key == pygame.K_q:
+                    self.p1.velocity = -10
+                elif event.key == pygame.K_a:
+                    self.p1.velocity = 10
+                elif event.key == pygame.K_p:
+                    self.p2.velocity = -10
+                elif event.key == pygame.K_i:
+                    self.p2.velocity = 10
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_q or event.key == pygame.K_a:
+                    self.p1.velocity = 0
+                elif event.key == pygame.K_p or event.key == pygame.K_i:
+                    self.p2.velocity = 0
 
     def draw(self):
         # draws all game objects to screen
@@ -114,6 +129,9 @@ class Game:
         self.check_bounce()
         self.check_collision()
         self.dot.move()
+        self.check_paddle_collision()
+        self.p1.move()
+        self.p2.move()
 
     def check_bounce(self):
         if (self.dot.center[0]+self.dot.radius > 500):
@@ -126,10 +144,20 @@ class Game:
             self.dot.velocity[1] = -self.dot.velocity[1]
 
     def check_collision(self):
-        if(self.dot.velocity[0] < 0 and self.p1.rect.collidepoint(self.dot.center)):
+        collision_point_1 = [self.dot.center[0] -
+                             self.dot.radius, self.dot.center[1]]
+        collision_point_2 = [self.dot.center[0] +
+                             self.dot.radius, self.dot.center[1]]
+        if(self.dot.velocity[0] < 0 and self.p1.rect.collidepoint(collision_point_1)):
             self.dot.velocity[0] = - self.dot.velocity[0]
-        elif(self.dot.velocity[0] > 0 and self.p2.rect.collidepoint(self.dot.center)):
+        elif(self.dot.velocity[0] > 0 and self.p2.rect.collidepoint(collision_point_2)):
             self.dot.velocity[0] = - self.dot.velocity[0]
+
+    def check_paddle_collision(self):
+        if(self.p1.velocity + self.p1.rect[1] < 0 or self.p1.velocity + self.p1.rect[1] > 400 - self.p1.rect[3]):
+            self.p1.velocity = 0
+        elif(self.p2.velocity + self.p2.rect[1] < 0 or self.p2.velocity + self.p2.rect[1] > 400 - self.p2.rect[3]):
+            self.p2.velocity = 0
 
     def decide_continue(self):
         # Check and remember if the game should continue
@@ -172,8 +200,8 @@ class Paddle:
     def draw(self):
         pygame.draw.rect(self.screen, self.color, self.rect)
 
-    def move():
-        pass
+    def move(self):
+        self.rect[1] += self.velocity
 
 
 main()
