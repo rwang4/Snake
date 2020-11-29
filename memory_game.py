@@ -96,7 +96,7 @@ class Game:
 
     def handleMouseUp(self, pos):
         tile = self.get_tile(pos)
-        if tile is not None and tile is not self.active:
+        if tile is not None:
             tile.expose = True
             if self.active is None:
                 self.active = tile
@@ -128,14 +128,14 @@ class Game:
         # self.draw_time()
         pygame.display.update()  # make the updated surface appear on the display
 
-    # def draw_time(self):
-    #     time = str(self.time)
-    #     bg_color = pygame.Color('white')
-    #     text_font = pygame.font.SysFont('Comic Sans MS', 60)
-    #     text_image = text_font.render(
-    #         time, False, bg_color)
-    #     self.surface.blit(
-    #         text_image, (self.surface.get_width()-text_image.get_width(), 0))
+    def draw_time(self):
+        time = str(self.time)
+        bg_color = pygame.Color('white')
+        text_font = pygame.font.SysFont('Comic Sans MS', 60)
+        text_image = text_font.render(
+            time, False, bg_color)
+        self.surface.blit(
+            text_image, (self.surface.get_width()-text_image.get_width(), 0))
 
     def update(self):
         # Update the game objects for the next frame.
@@ -156,12 +156,9 @@ class Tile:
         self.image = image
         self.surface = surface
         self.hidden_image = pygame.image.load("images/image0.bmp")
-        self.boarder_width = 3
+        self.boarder_width = 5
         self.expose = False
         self.rect = pygame.Rect(self.position, self.size)
-
-    def show(self):
-        pass
 
     def draw(self):
         if self.expose:
