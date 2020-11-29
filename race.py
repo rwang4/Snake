@@ -15,8 +15,8 @@ def main():
     idx2 = 0
     l = len(p1)
     turn = 0
-    printgame(p1, p2)
     print("Players begin in the starting position")
+    printgame(p1, p2)
     while(1):
         if turn == 0:
             input("Player x press enter to roll!")

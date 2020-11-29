@@ -10,6 +10,7 @@
 # game window, and to understand how to use the flip() function to render graphics.
 # https://www.pygame.org/docs/tut/PygameIntro.html
 import pygame
+from pygame.constants import MOUSEBUTTONDOWN, MOUSEWHEEL
 
 
 def main():
@@ -45,7 +46,7 @@ class Game:
         self.screen = game_screen
         self.bg_color = pygame.Color('black')
         self.game_clock = pygame.time.Clock()
-        self.FPS = 30
+        self.FPS = 60
         self.continue_game = True
         self.close_clicked = False
         self.score1 = 0
@@ -56,7 +57,7 @@ class Game:
 
         dot_color = pygame.Color('red')
         dot_pos = [300, 150]
-        dot_velocity = [10, 4]
+        dot_velocity = [5, 2]
         dot_radius = 7
         self.dot = Dot(dot_color, dot_radius, dot_pos,
                        dot_velocity, self.screen)
@@ -94,19 +95,19 @@ class Game:
             if event.type == pygame.QUIT:
                 self.close_clicked = True
             elif event.type == pygame.KEYDOWN:
-                keys = pygame.key.get_pressed()
+                # keys = pygame.key.get_pressed()
                 if event.key == pygame.K_q:
                     self.p1.velocity = -10
                 elif event.key == pygame.K_a:
                     self.p1.velocity = 10
                 elif event.key == pygame.K_p:
                     self.p2.velocity = -10
-                elif event.key == pygame.K_i:
+                elif event.key == pygame.K_l:
                     self.p2.velocity = 10
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_q or event.key == pygame.K_a:
                     self.p1.velocity = 0
-                elif event.key == pygame.K_p or event.key == pygame.K_i:
+                elif event.key == pygame.K_p or event.key == pygame.K_l:
                     self.p2.velocity = 0
 
     def draw(self):
